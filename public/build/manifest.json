@@ -1,8 +1,23 @@
 {
+  "resources/js/Pages/Login.jsx": {
+    "file": "assets/Login-BbfHWV35.js",
+    "name": "Login",
+    "src": "resources/js/Pages/Login.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
   "resources/js/app.jsx": {
-    "file": "assets/app-6aMzLQKc.js",
+    "file": "assets/app-aOK-hrVN.js",
     "name": "app",
     "src": "resources/js/app.jsx",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Login.jsx"
+    ],
+    "css": [
+      "assets/app-CKOIoMKq.css"
+    ]
   }
 }
