@@ -1,7 +1,14 @@
 <?php
-use Illuminate\Support\Facades\Route;
 
-// Forzamos que CUALQUIER ruta cargue la vista de React
-Route::get('{any}', function () {
-    return view('welcome');
-})->where('any', '.*');
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+// Ruta para el Catálogo
+Route::get('/', function () {
+    return Inertia::render('WatchList');
+});
+
+// Ruta para el Login (He corregido tu URL del componente)
+Route::get('/login', function () {
+    return Inertia::render('Login'); 
+});

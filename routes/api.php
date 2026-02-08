@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// Estas dos líneas de abajo son las que quitan el color rojo del código:
 use App\Http\Controllers\WatchController;
 use App\Http\Controllers\AuthController;
 

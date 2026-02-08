@@ -12,4 +12,4 @@
 <body class="antialiased bg-gray-50">
     <?php if (!isset($__inertiaSsrDispatched)) { $__inertiaSsrDispatched = true; $__inertiaSsrResponse = app(\Inertia\Ssr\Gateway::class)->dispatch($page); }  if ($__inertiaSsrResponse) { echo $__inertiaSsrResponse->body; } elseif (config('inertia.use_script_element_for_initial_page')) { ?><script data-page="app" type="application/json"><?php echo json_encode($page); ?></script><div id="app"></div><?php } else { ?><div id="app" data-page="<?php echo e(json_encode($page)); ?>"></div><?php } ?>
 </body>
-</html><?php /**PATH C:\Users\canci\Desktop\Proyecto\front_book-main\resources\views/welcome.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\Users\canci\Desktop\Proyecto\front_book-main\resources\views/app.blade.php ENDPATH**/ ?>

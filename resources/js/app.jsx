@@ -1,20 +1,21 @@
 import './bootstrap';
-import React from 'react';
+import '../css/app.css';
+
 import { createRoot } from 'react-dom/client';
-import WatchList from './Components/WatchList';
+import { createInertiaApp } from '@inertiajs/react';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
-console.log("🚀 React intentando arrancar...");
+const appName = import.meta.env.VITE_APP_NAME || 'Juan Time';
 
-const rootElement = document.getElementById('app');
-
-if (rootElement) {
-    const root = createRoot(rootElement);
-    root.render(
-        <React.StrictMode>
-            <WatchList />
-        </React.StrictMode>
-    );
-    console.log("✅ React se ha montado correctamente.");
-} else {
-    console.error("❌ Error: No se encontró el div con id 'app'");
-}
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    // Esta parte es CRÍTICA: le dice a Inertia dónde buscar tus archivos .jsx
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx')),
+    setup({ el, App, props }) {
+        const root = createRoot(el);
+        root.render(<App {...props} />);
+    },
+    progress: {
+        color: '#4B5563', // Color de la barra de carga
+    },
+});

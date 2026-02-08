@@ -3,30 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function showLoginForm()
-    {
-        return view('login');
-    }
-    
-
     public function login(Request $request)
     {
-        $response = Http::post(env('APP_URL_BACKEND').'/login', [
-            'email' => $request->email,
-            'password' => $request->password,
+        // Validamos que los datos lleguen correctamente
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        if ($response->successful()) {
-            $token = $response->json()['token'];
-            session(['jwt_token' => $token]);
-            return redirect()->route('books');
+        // Buscamos al usuario por su email
+        $user = User::where('email', $request->email)->first();
+
+        // Verificamos si existe y si la contraseña es correcta
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Credenciales incorrectas.'
+            ], 401);
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials.']);
+        // Creamos un Token de acceso (gracias a Laravel Sanctum)
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
     }
 }
