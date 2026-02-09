@@ -17,6 +17,7 @@ const Login = () => {
             const response = await window.axios.post('http://watch_app-main.test/api/login', credentials);            
             // Guardamos el token en el navegador
             localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('userName', response.data.user.name);
             
             alert('Acceso concedido. Bienvenido a Juan Time.');
             window.location.href = '/'; // Redirigimos al catálogo
